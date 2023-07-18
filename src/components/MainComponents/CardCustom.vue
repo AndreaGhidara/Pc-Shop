@@ -16,7 +16,9 @@ export default {
         product: Object,
     },
     methods: {
-        
+        sortBy: function(e) {
+        this.quantity = e.target.value;
+    },
     },
     mounted() {
     }
@@ -51,10 +53,10 @@ export default {
                 </div>
                 <div class="d-flex justify-content-between pt-3">
                     <div class="d-flex">
-                        <select v-model="quantity" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <select v-on:change="sortBy" class="form-select form-select-sm" aria-label=".form-select-sm example">
                             <option disabled>Quantity</option>
                             <template v-for="n in 10">
-                                <option>{{ n }}</option>
+                                <option>{{ Number(n) }}</option>
                             </template>
                         </select>
                         <div @click="store.addToCart(product,quantity)" class="btn ms-3 btnShopNow">
@@ -73,7 +75,7 @@ export default {
                             </div>
                         </div>
                     </div>
-                    <strong>
+                    <strong class="text-white">
                         {{ product.price }}€
                     </strong>
                 </div>

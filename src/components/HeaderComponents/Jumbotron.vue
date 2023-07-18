@@ -36,20 +36,20 @@ export default {
 
 img {
     width: 100%;
-    height: 30rem;
+    height: 20rem;
     object-fit: cover;
 }
 
 .img_container {
     position: relative;
     width: 100%;
-    height: 30rem;
+    height: 20rem;
 
 }
 
 .filigrane {
     width: 100%;
-    height: 30rem;
+    height: 20rem;
     position: absolute;
     background-color: rgba(233, 233, 233, 0.247);
     top: 0;
