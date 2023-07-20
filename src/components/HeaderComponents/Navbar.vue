@@ -13,6 +13,7 @@ export default {
     data() {
         return {
             store,
+            oldCart:[],
             navLinks:[
             {
                 label:"Home",
@@ -26,9 +27,13 @@ export default {
         }
     },
     methods: {
-
+        recoveryCart(){
+            store.cart = JSON.parse(localStorage.getItem("cart"));
+        }
     },
     mounted() {
+        this.recoveryCart();
+        store.calcTotalCart();
     }
 }
 </script>
@@ -93,7 +98,7 @@ export default {
                                                         {{ product.quantity }}
                                                     </div>
                                                     <div class="p-2 d-flex align-items-center flex-shrink-1">
-                                                        <p class="m-0">{{ Number(product.price * product.quantity).toFixed(2) }}€</p>
+                                                        <p class="m-0">{{ Number(store.calcPriceToQuantity(product.quantity, product.price)).toFixed(2) }}€</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,7 +111,7 @@ export default {
                         <!-- Total Price in Cart -->
                         <div class="d-flex align-items-center justify-content-between p-2">
                             <p class="m-0">Total Price:</p>
-                            {{ store.totalPrice }} €
+                            {{ Number(store.totalPrice).toFixed(2) }} €
                         </div>
                     </div>
                     <div class="dropdown mt-3">

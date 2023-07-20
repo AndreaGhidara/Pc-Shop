@@ -4,6 +4,8 @@ import axios from "axios";
 import { end } from "@popperjs/core";
 
 export const store = reactive({
+
+
     //Data CALL API
     apiUrl: "http://127.0.0.1:8000/api/",
     apiWord: "products",
@@ -70,27 +72,51 @@ export const store = reactive({
 
     addToCart(product, quantity) {
         let singleProduct = []
-        let productVerified = false;
-        console.log(singleProduct);
-    //Creo una coppia del oggetto (MAI LASCIARE | singleProduct=product | i due oggetti saranno collegati e le modifche su uno dei due comportera le modifiche anche nel altro)
-        singleProduct = Object.assign({},product);
+        this.productVerified = false;
+        //Creo una coppia del oggetto (MAI LASCIARE | singleProduct=product | i due oggetti saranno collegati e le modifche su uno dei due comportera le modifiche anche nel altro)
+        singleProduct = Object.assign({}, product);
 
         singleProduct.quantity = quantity;
 
+        this.checkCart(singleProduct);
 
+        if (!this.productVerified) {
+            this.cart.push(singleProduct)
+        }
+        localStorage.setItem("cart", JSON.stringify(this.cart))
+        
+        this.calcTotalCart();
+    },
+    checkCart(singleProduct){
         this.cart.forEach((el) => {
             //controllo che il prodotto che sto aggiungendo non sia gia presente nel carrello, tramite ID.
             if (el.id == singleProduct.id) {
                 //aggiorno la quantita e il prezzo
                 el.quantity += singleProduct.quantity;
-                productVerified = true;
+                this.productVerified = true;
             }
         });
+    },
 
-        if (!productVerified) {
-            console.log("push " + singleProduct.title);
-            this.cart.push(singleProduct)
-        }
+    somma(num1, num2) {
+        return num1 + num2;
+    },
+
+    calcPriceToQuantity(quantity, price) {
+        let tot = 0
+        return tot = quantity * price
+    },
+
+    calcTotalCart(){
+        this.totalPrice = 0
+
+        this.cart.forEach(element => {
+            console.log(Number(this.calcPriceToQuantity(element.quantity, element.price).toFixed(2)));
+            let singleProductPrice = Number(this.calcPriceToQuantity(element.quantity, element.price).toFixed(2))
+            this.totalPrice = this.somma(singleProductPrice,this.totalPrice)
+            console.log(this.totalPrice);
+        });
     }
+    
 });
 
