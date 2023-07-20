@@ -18,44 +18,53 @@ export default {
 
     },
     mounted() {
-        store.callApi(this.apiUrl, this.apiWord)
-        console.log(store.products);
+
     }
 }
 </script>
 
 <template>
     <section>
-        <div class="card">
-            <div class="containerImg w-100 p-3">
-                <img class="img-fluid" src="../../assets/img/3060_Gigabyte.jpg" alt="" />
-            </div>
-            <div class="card-body">
-                <h3>titolo</h3>
-                <hr />
-                <div>
-                    Karta graficzna GeForce RTX 3060 Gaming OC 8GB GDDR6 128bit
-                    2DP/2HDMI
-                </div>
-                <hr>
-                <div>
-                    <div>
-                        <button class="button" type="button">
-                            <span class="button__text">See Product</span>
-                            <span class="button__icon">
-                                <i class="fa-solid fa-arrow-up"></i>
-                            </span>
-                        </button>
-                    </div>
-                    <div class="d-flex justify-content-between pt-3">
-                        <div>
-                            <SelectCustom />
+        <div class="container py-5">
+            <div class="row">
+                <template v-for="n in 10">
+                    <div class="col">
+                        <!-- Card -->
+                        <div class="card">
+                            <div class="containerImg w-100 p-3">
+                                <img class="img-fluid"
+                                    src="https://cdn.nexths.it/scheda_prodotto/image/med/4719331309312.jpg" alt="" />
+                            </div>
+                            <div class="card-body">
+                                <h3>titolo</h3>
+                                <hr />
+                                <div>
+                                    Karta graficzna GeForce RTX 3060 Gaming OC 8GB GDDR6 128bit
+                                    2DP/2HDMI
+                                </div>
+                                <hr>
+                                <div>
+                                    <div>
+                                        <button class="button" type="button">
+                                            <span class="button__text">See Product</span>
+                                            <span class="button__icon">
+                                                <i class="fa-solid fa-arrow-up"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="d-flex justify-content-between pt-3">
+                                        <div>
+                                            <SelectCustom />
+                                        </div>
+                                        <strong>
+                                            1000.00€
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <strong>
-                            1000.00€
-                        </strong>
                     </div>
-                </div>
+                </template>
             </div>
         </div>
     </section>

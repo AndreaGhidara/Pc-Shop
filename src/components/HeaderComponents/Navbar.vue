@@ -2,14 +2,27 @@
 import * as bootstrap from "bootstrap";
 import { store } from "../../data/store";
 
+import { RouterLink, RouterView } from "vue-router";
+
 export default {
     name: "Navbar",
     components: {
-
-    },
+    RouterView,
+    RouterLink,
+},
     data() {
         return {
             store,
+            navLinks:[
+            {
+                label:"Home",
+                to:{name:"home"}
+            },
+            {
+                label:"About",
+                to:{name:"about"}
+            },
+        ]
         }
     },
     methods: {
@@ -24,10 +37,10 @@ export default {
     <nav class="container">
         <div class="d-flex justify-content-between align-items-center py-3">
             <!-- Link di navigazione -->
-            <div class="d-flex align-items-center py-3">
-                <p class="m-0 pe-3">home</p>
-                <p class="m-0 pe-3">home</p>
-                <p class="m-0">home</p>
+            <div v-for="link in navLinks" :key="link">
+                <RouterLink :to="link.to">
+                    {{ link.label }}
+                </RouterLink>
             </div>
             <!-- Logo -->
             <div class="div logo">
@@ -63,7 +76,7 @@ export default {
                         <h6>Your order</h6>
                         <!-- Products in Cart -->
                         <div class="order d-flex flex-column">
-                            <div v-for="product in store.cart">
+                            <div v-for="product in store.cart" :key="product">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-12 d-flex align-items-center">
@@ -80,7 +93,7 @@ export default {
                                                         {{ product.quantity }}
                                                     </div>
                                                     <div class="p-2 d-flex align-items-center flex-shrink-1">
-                                                        <p class="m-0">{{ Number(product.price * product.quantity) }}€</p>
+                                                        <p class="m-0">{{ Number(product.price * product.quantity).toFixed(2) }}€</p>
                                                     </div>
                                                 </div>
                                             </div>

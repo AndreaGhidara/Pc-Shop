@@ -1,14 +1,18 @@
 <script>
+//Import
 import CardCustom from '../components/MainComponents/CardCustom.vue';
 
 import axios from 'axios';
 import { store } from '../data/store';
 
+//Data
 export default {
     name: "AppHome",
+
     components: {
         CardCustom,
     },
+
     data() {
         return {
             store,
@@ -16,18 +20,20 @@ export default {
             apiWord: "products",
         }
     },
-    methods: {
 
+    methods: {
+        //Prev-Page
         getProducsPrevPage() {
             store.getproductsPage(store.currentPage - 1);
         },
-
+        //Next-Page
         getProducsNextPage() {
 
             store.getproductsPage(store.currentPage + 1);
         },
-        isThisPage(n) {
-            if (n == store.currentPage) {
+        //CurrentPage
+        isThisPage(numPage) {
+            if (numPage == store.currentPage) {
                 return true
             }
         }
@@ -42,17 +48,21 @@ export default {
 <template>
     <div class="backgroudCustom">
         <div class="container">
-            <div class="row d-flex justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 py-5">
+            <!-- Card -->
+            <div class="row d-flex justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3 py-5">
                 <div class="col" v-for="product in store.products">
                     <CardCustom :product="product" />
                 </div>
             </div>
         </div>
+        <!-- Pagination -->
         <nav class="py-3" aria-label="Page navigation">
             <ul class="pagination justify-content-center">
+                <!-- Prev-Page -->
                 <li class="page-item btn p-0">
                     <a class="page-link" @click="getProducsPrevPage" >Previous</a>
                 </li>
+                <!-- Button-Page -->
                 <div v-for="n in store.lastPage">
                     <li class="page-item btn p-0">
                         <a class="page-link" :class="{ 'bg-warning': isThisPage(n), }" href="#">
@@ -60,9 +70,7 @@ export default {
                         </a>
                     </li>
                 </div>
-                <!-- <li class="page-item btn p-0"><a class="page-link" href="#">2</a></li>
-                <li class="page-item btn p-0"><a class="page-link" href="#">3</a></li> -->
-
+                <!-- Next-Page -->
                 <li class="page-item btn p-0">
                     <a class="page-link" @click="getProducsNextPage" >Next</a>
                 </li>
